@@ -38,6 +38,19 @@
             //Assert
             $this->assertEquals("San Francisco", $result);
         }
+
+        function testGetId()
+        {
+            //Arrange
+            $name = "Portland";
+            $id = 2;
+            $test_city = new City($name, $id);
+            //Act
+            $result = $test_city->getId();
+            //Assert
+            $this->assertEquals($id, $result);
+        }
+
     }
 
 

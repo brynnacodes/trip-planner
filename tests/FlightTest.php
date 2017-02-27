@@ -44,5 +44,20 @@
             //Assert
             $this->assertEquals("3:45", $result);
         }
+
+        function testGetId()
+        {
+            //Arrange
+            $departure_time = "1:30";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+
+            //Act
+            $result = $test_flight->getId();
+
+            //Assert
+            $this->assertEquals($id, $result);
+        }
     }
 ?>
