@@ -70,6 +70,11 @@
             $this->setDepartureTime($new_departure_time);
         }
 
+        function deleteFlight()
+        {
+            $GLOBALS["DB"]->exec("DELETE FROM flights WHERE id = {$this->getId()};");
+        }
+
         static function getAll()
         {
             $returned_flights = $GLOBALS['DB']->query("SELECT * FROM flights;");

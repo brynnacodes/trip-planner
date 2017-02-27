@@ -50,6 +50,11 @@
             $this->setName($new_name);
         }
 
+        function deleteCity()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM cities WHERE id = {$this->getId()};");
+        }
+
         static function getAll()
         {
             $returned_cities = $GLOBALS['DB']->query("SELECT * FROM cities;");

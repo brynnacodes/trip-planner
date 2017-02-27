@@ -85,6 +85,27 @@
             $this->assertEquals("Seattle", $test_city->getName());
         }
 
+        function testDeleteCity()
+        {
+            //Arrange
+            $name = "Portland";
+            $id = 2;
+            $test_city = new City($name, $id);
+            $test_city->save();
+
+            $name2 = "San Francisco";
+            $id2 = 4;
+            $test_city2 = new City($name2, $id2);
+            $test_city2->save();
+
+            //Act
+            $test_city->deleteCity();
+            $result = City::getAll();
+
+            //Assert
+            $this->assertEquals([$test_city2], $result);
+        }
+
         function testGetAll()
         {
             //Arrange
@@ -122,7 +143,4 @@
         }
 
     }
-
-
-
 ?>
