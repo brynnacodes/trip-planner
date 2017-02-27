@@ -61,7 +61,8 @@
 
         function deleteFlight()
         {
-            $GLOBALS["DB"]->exec("DELETE FROM flights WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM flights WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM flights_cities WHERE flight_id = {$this->getId()};");
         }
 
         static function find($id)

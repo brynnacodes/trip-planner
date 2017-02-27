@@ -65,6 +65,8 @@
         $city = City::find($_POST['city_id']);
         $flight = Flight::find($_POST['flight_id']);
         $city->addFlight($flight);
+
+        var_dump($city->addFlight($flight));
         return $app['twig']->render('city.html.twig', ['city' => $city, "cities" => City::getAll(), 'flights' => $city->getFlights(), 'all_flights' => Flight::getAll()]);
     });
 

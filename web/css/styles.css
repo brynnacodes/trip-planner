@@ -1,0 +1,61 @@
+body {
+    background-image: url("/../img/background.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Amiko', sans-serif;
+}
+
+.jumbotron {
+    text-align: center;
+    margin-top: 10%;
+    background-color: #A9BCD0;
+    background:rgba(255,255,255,0.5);
+}
+
+.jumbotron h1 {
+    font-size: 70px;
+    letter-spacing: 2px;
+}
+.btn {
+    background-color: goldenrod;
+}
+
+/*index*/
+
+.link-div {
+
+}
+
+.index-link {
+    background-color: lightgrey;
+    opacity: .8;
+    border-radius: 3px;
+    padding: 2%;
+    width: 20%;
+    display: inline-block;
+    margin-right: 10%;
+    margin-left: 15%;
+}
+
+/*cities*/
+
+.form-style {
+    border-radius: 4px;
+    background-color: #A9BCD0;
+    background:rgba(255,255,255,0.5);
+    padding: 1%;
+    width: 50%;
+    display: inline-block;
+    margin-left: 5%;
+}
+
+.cities-div {
+    border-radius: 4px;
+    background-color: #A9BCD0;
+    background:rgba(255,255,255,0.5);
+    padding: 1%;
+    width: 30%;
+    display: inline-block;
+    margin-right: 5%;
+    float: right;
+}

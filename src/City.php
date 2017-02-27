@@ -42,6 +42,7 @@
         function deleteCity()
         {
             $GLOBALS['DB']->exec("DELETE FROM cities WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM flights_cities WHERE flight_id = {$this->getId()};");
         }
 
         function addFlight($flight)

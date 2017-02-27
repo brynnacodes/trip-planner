@@ -5,31 +5,36 @@
         <title>Cities</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/styles.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Amiko" rel="stylesheet">
     </head>
     <body>
         <div class="container">
-            <h1>Cities</h1>
+            <div class="jumbotron">
+                <h1>Destinations</h1>
+            </div>
+            <div class="form-style">
+                <form class="add-city-form" action="/cities" method="post">
+                    <label for="name">City name:</label>
+                    <input id="name" type="text" name="name">
 
+                    <button class="btn" type="submit">Add city</button>
+                </form>
+
+                <form class="add-city-form" action="/delete_cities" method="post">
+                    <button class="btn" type="submit">Clear all</button>
+                </form>
+                <p><a href="/">Home</a></p>
+            </div>
             {% if cities is not empty %}
-                <p>Here are all availble cities:</p>
-                <ul>
-                    {% for city in cities %}
-                        <li><a href="/cities/{{ city.getId }}">{{ city.getName }}</a></li>
-                    {% endfor %}
-                </ul>
+                <div class="cities-div">
+                    <h3>Here are all avalible destinations:</h3>
+                    <ul>
+                        {% for city in cities %}
+                            <li><a href="/cities/{{ city.getId }}">{{ city.getName }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endif %}
-
-            <form class="form-group" action="/cities" method="post">
-                <label for="name">City name:</label>
-                <input id="name" type="text" name="name">
-
-                <button class="btn" type="submit">Add city</button>
-            </form>
-
-            <form action="/delete_cities" method="post">
-                <button class="btn" type="submit">Clear all</button>
-            </form>
-            <p><a href="/">Home</a></p>
         </div>
     </body>
 </html>
