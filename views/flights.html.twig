@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Flights</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Flights</h1>
+
+            {% if flights is not empty %}
+                <p>Here are all availble flights:</p>
+                <ul>
+                    {% for flight in flights %}
+                        <li><a href="/flights/{{ flight.getId }}">{{ flight.getDepartureTime }}{{ flight.getStatus }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form class="form-group" action="/flights" method="post">
+                <label for="departure_time">Flight departure time:</label>
+                <input id="departure_time" type="text" name="departure_time">
+
+                <label for="status">Flight status:</label>
+                <input id="status" type="text" name="status">
+
+                <button class="btn" type="submit">Add flight</button>
+            </form>
+
+            <form action="/delete_flights" method="post">
+                <button class="btn" type="submit">Clear all</button>
+            </form>
+            <p><a href="/">Home</a></p>
+        </div>
+    </body>
+</html>

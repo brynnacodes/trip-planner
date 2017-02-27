@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Flight Planner</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+    </head>
+    <body>
+        <h1>{{ Flight.getDepartureTime }}</h1>
+
+        {% if cities is not empty %}
+            <p>Here are the cities with this flight:</p>
+            <ul>
+                {% for city in cities %}
+                    <li>{{ city.getName }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <h4>Add a city for this flight:</h4>
+
+        <form action='/add_cities' method='post'>
+            <input id="flight_id" name="flight_id" type="hidden" value="{{ flight.getId }}">
+            <label for="city_id">Select a city</label>
+            <select id='city_id' name='city_id' type='text'>
+              {% for city in all_cities %}
+                <option value="{{ city.getId }}"> {{ city.getName }} </option>
+              {% endfor %}
+            </select>
+            <button type='submit'>Add city</button>
+        </form>
+
+        <p><a href='/'>Home</a></p>
+    </body>
+</html>
