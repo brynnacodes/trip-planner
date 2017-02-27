@@ -14,6 +14,12 @@
 
     class FlightTest extends PHPUnit_Framework_TestCase
     {
+        protected function tearDown()
+        {
+          City::deleteAll();
+          Flight::deleteAll();
+        }
+
         function testGetDepartureTime()
         {
         //Arrange
@@ -57,7 +63,46 @@
             $result = $test_flight->getId();
 
             //Assert
-            $this->assertEquals($id, $result);
+            $this->assertEquals(2, $result);
+        }
+
+        function testSave()
+        {
+            //Arrange
+            $departure_time = "1";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            //Act
+            $result = Flight::getAll();
+
+            //Assert
+            $this->assertEquals($test_flight, $result[0]);
+        }
+
+        function testGetAll()
+        {
+            //Arrange
+            $departure_time = "1";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            $departure_time2 = "5";
+            $status2 = "late";
+            $id2 = 4;
+            $test_flight2 = new Flight($departure_time, $status, $id);
+            $test_flight2->save();
+
+
+            //Act
+            $result = Flight::getAll();
+
+            //Assert
+            $this->assertEquals([$test_flight, $test_flight2], $result);
         }
     }
 ?>

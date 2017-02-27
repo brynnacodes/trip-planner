@@ -36,6 +36,31 @@
         {
             return $this->id;
         }
+
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO flights (departure_time, status) VALUES ('{$this->getDepartureTime()}', '{$this->getStatus()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        static function getAll()
+        {
+            $returned_flights = $GLOBALS['DB']->query("SELECT * FROM flights;");
+            $flights = [];
+            foreach($returned_flights as $flight) {
+                $departure_time = $flight['departure_time'];
+                $status = $flight['status'];
+                $id = $flight['id'];
+                $new_flight = new Flight($departure_time, $status, $id);
+                array_push($flights, $new_flight);
+            }
+            return $flights;
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM flights");
+        }
     }
 
 ?>
