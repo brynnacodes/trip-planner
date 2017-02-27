@@ -44,6 +44,32 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function find($id)
+        {
+            $found_flight;
+            $flights = Flight::getAll();
+            foreach ($flights as $flight) {
+                if ($flight->getId() == $id) {
+                    $found_flight = $flight;
+                }
+            }
+            return $found_flight;
+        }
+
+        function updateStatus($new_status)
+        {
+            $exec = $GLOBALS['DB']->prepare("UPDATE flights SET status = :status WHERE id = :id;");
+            $exec->execute([':status' => $new_status, ':id' => $this->getId()]);
+            $this->setStatus($new_status);
+        }
+
+        function updateDepartureTime($new_departure_time)
+        {
+            $exec = $GLOBALS['DB']->prepare("UPDATE flights SET departure_time = :departure_time WHERE id = :id;");
+            $exec->execute([':departure_time' => $new_departure_time, ':id' => $this->getId()]);
+            $this->setDepartureTime($new_departure_time);
+        }
+
         static function getAll()
         {
             $returned_flights = $GLOBALS['DB']->query("SELECT * FROM flights;");

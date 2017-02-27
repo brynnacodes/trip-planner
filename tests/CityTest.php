@@ -70,6 +70,21 @@
             $this->assertEquals($test_city, $result[0]);
         }
 
+        function testUpdate()
+        {
+            //Arrange
+            $name = "Portland";
+            $id = 2;
+            $test_city = new City($name, $id);
+            $test_city->save();
+
+            $new_name = "Seattle";
+            //Act
+            $test_city->update($new_name);
+            //Assert
+            $this->assertEquals("Seattle", $test_city->getName());
+        }
+
         function testGetAll()
         {
             //Arrange

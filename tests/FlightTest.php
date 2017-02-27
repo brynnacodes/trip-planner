@@ -82,6 +82,46 @@
             $this->assertEquals($test_flight, $result[0]);
         }
 
+        function testUpdateDepartureTime()
+        {
+            //Arrange
+            $departure_time = "1:30";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            $new_departure_time = "1:50";
+
+            //Act
+            $test_flight->updateDepartureTime($new_departure_time);
+
+            //Assert
+            $this->assertEquals("1:50", $test_flight->getDepartureTime());
+
+        }
+
+        function testUpdateStatus()
+        {
+            //Arrange
+            $departure_time = "1:30";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            $new_status = "late";
+
+            //Act
+            $test_flight->updateStatus($new_status);
+
+            //Assert
+            $this->assertEquals("late", $test_flight->getStatus());
+
+        }
+
+
+
         function testGetAll()
         {
             //Arrange
