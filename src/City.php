@@ -26,7 +26,8 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO cities (name) VALUES ('{$this->getName()}');");
+            $exec = $GLOBALS['DB']->prepare("INSERT INTO cities (name) VALUES (:name);");
+            $exec->execute(['name' => $this->getName()]);
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 

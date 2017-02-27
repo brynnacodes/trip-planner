@@ -7,7 +7,7 @@
     require_once "src/City.php";
     require_once "src/Flight.php";
 
-    $server = 'mysql:host=localhost:8889;dbname=trip_planner';
+    $server = 'mysql:host=localhost:8889;dbname=trip_planner_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -69,7 +69,7 @@
         function testSave()
         {
             //Arrange
-            $departure_time = "1";
+            $departure_time = "1:30";
             $status = "on time";
             $id = 2;
             $test_flight = new Flight($departure_time, $status, $id);
@@ -85,13 +85,13 @@
         function testGetAll()
         {
             //Arrange
-            $departure_time = "1";
+            $departure_time = "1:30";
             $status = "on time";
             $id = 2;
             $test_flight = new Flight($departure_time, $status, $id);
             $test_flight->save();
 
-            $departure_time2 = "5";
+            $departure_time2 = "5:30";
             $status2 = "late";
             $id2 = 4;
             $test_flight2 = new Flight($departure_time, $status, $id);
@@ -103,6 +103,23 @@
 
             //Assert
             $this->assertEquals([$test_flight, $test_flight2], $result);
+        }
+
+        function testDeleteAll()
+        {
+            //Arrange
+            $departure_time = "1:30";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            //Act
+            Flight::deleteAll();
+            $result = Flight::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
         }
     }
 ?>

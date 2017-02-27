@@ -39,7 +39,8 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO flights (departure_time, status) VALUES ('{$this->getDepartureTime()}', '{$this->getStatus()}');");
+            $exec = $GLOBALS['DB']->prepare("INSERT INTO flights (departure_time, status) VALUES (:departure_time, :status);");
+            $exec->execute([':departure_time' => $this->getDepartureTime(), ':status' => $this->getStatus()]);
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 

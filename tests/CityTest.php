@@ -7,7 +7,7 @@
     require_once "src/City.php";
     require_once "src/Flight.php";
 
-    $server = 'mysql:host=localhost:8889;dbname=trip_planner';
+    $server = 'mysql:host=localhost:8889;dbname=trip_planner_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -88,6 +88,22 @@
 
             //Assert
             $this->assertEquals([$test_city, $test_city2], $result);
+        }
+
+        function testDeleteAll()
+        {
+            //Arrange
+            $name = "Portland";
+            $id = 2;
+            $test_city = new City($name, $id);
+            $test_city->save();
+
+            //Act
+            City::deleteAll();
+            $result = City::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
         }
 
     }
