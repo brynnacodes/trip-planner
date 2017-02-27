@@ -142,6 +142,28 @@
             $this->assertEquals([$test_flight], Flight::getAll());
         }
 
+        function testFind()
+        {
+            //Arrange
+            $departure_time = "1:30";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            $departure_time2 = "5:30";
+            $status2 = "late";
+            $id2 = 4;
+            $test_flight2 = new Flight($departure_time, $status, $id);
+            $test_flight2->save();
+
+            //Act
+            $result = Flight::find($test_flight->getId());
+
+            //Assert
+            $this->assertEquals($test_flight, $result);
+        }
+
         function testGetAll()
         {
             //Arrange

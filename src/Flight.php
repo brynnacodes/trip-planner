@@ -44,17 +44,6 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function find($id)
-        {
-            $found_flight;
-            $flights = Flight::getAll();
-            foreach ($flights as $flight) {
-                if ($flight->getId() == $id) {
-                    $found_flight = $flight;
-                }
-            }
-            return $found_flight;
-        }
 
         function updateStatus($new_status)
         {
@@ -75,6 +64,18 @@
             $GLOBALS["DB"]->exec("DELETE FROM flights WHERE id = {$this->getId()};");
         }
 
+        static function find($id)
+        {
+            $found_flight;
+            $flights = Flight::getAll();
+            foreach ($flights as $flight) {
+                if ($flight->getId() == $id) {
+                    $found_flight = $flight;
+                }
+            }
+            return $found_flight;
+        }
+        
         static function getAll()
         {
             $returned_flights = $GLOBALS['DB']->query("SELECT * FROM flights;");

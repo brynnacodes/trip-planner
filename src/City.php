@@ -31,17 +31,6 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function find($id)
-        {
-            $found_city;
-            $cities = City::getAll();
-            foreach ($cities as $city) {
-                if ($city->getId() == $id) {
-                    $found_city = $city;
-                }
-            }
-            return $found_city;
-        }
 
         function update($new_name)
         {
@@ -55,6 +44,18 @@
             $GLOBALS['DB']->exec("DELETE FROM cities WHERE id = {$this->getId()};");
         }
 
+        static function find($id)
+        {
+            $found_city;
+            $cities = City::getAll();
+            foreach ($cities as $city) {
+                if ($city->getId() == $id) {
+                    $found_city = $city;
+                }
+            }
+            return $found_city;
+        }
+        
         static function getAll()
         {
             $returned_cities = $GLOBALS['DB']->query("SELECT * FROM cities;");
