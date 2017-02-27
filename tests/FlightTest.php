@@ -164,6 +164,54 @@
             $this->assertEquals($test_flight, $result);
         }
 
+        function testAddCity()
+        {
+            //Arrange
+            $departure_time = "1:30";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            $name = "San Francisco";
+            $id = 4;
+            $test_city = new City($name, $id);
+            $test_city->save();
+
+            //Act
+            $test_flight->addCity($test_city);
+
+            //Assert
+            $this->assertEquals($test_flight->getCities(), [$test_city]);
+        }
+
+        function testGetCities()
+        {
+            //Arrange
+            $name = "Portland";
+            $id = 2;
+            $test_city = new City($name, $id);
+            $test_city->save();
+
+            $name2 = "San Francisco";
+            $id2 = 4;
+            $test_city2 = new City($name2, $id2);
+            $test_city2->save();
+
+            $departure_time = "1:30";
+            $status = "on time";
+            $id = 2;
+            $test_flight = new Flight($departure_time, $status, $id);
+            $test_flight->save();
+
+            //Act
+            $test_flight->addCity($test_city);
+            $test_flight->addCity($test_city2);
+
+            //Assert
+            $this->assertEquals($test_flight->getCities(), [$test_city, $test_city2]);
+        }
+
         function testGetAll()
         {
             //Arrange

@@ -44,6 +44,31 @@
             $GLOBALS['DB']->exec("DELETE FROM cities WHERE id = {$this->getId()};");
         }
 
+        function addFlight($flight)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO flights_cities (flight_id, city_id) VALUES ({$this->getId()}, {$flight->getId()});");
+        }
+
+        function getFlights()
+        {
+            $query = $GLOBALS['DB']->query("SELECT flight_id FROM flights_cities WHERE city_id = {$this->getId()};");
+            $flight_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $flights = [];
+            foreach ($flight_ids as $id) {
+                $flight_id = $id['flight_id'];
+                $result = $GLOBALS['DB']->query("SELECT * FROM flights WHERE id = {$flight_id};");
+                $returned_flight = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $departure_time = $returned_flight[0]['departure_time'];
+                $status = $returned_flight[0]['status'];
+                $id = $returned_flight[0]['id'];
+                $new_flight = new Flight($departure_time, $status, $id);
+                array_push($flights, $new_flight);
+            }
+            return $flights;
+        }
+
         static function find($id)
         {
             $found_city;
@@ -55,7 +80,7 @@
             }
             return $found_city;
         }
-        
+
         static function getAll()
         {
             $returned_cities = $GLOBALS['DB']->query("SELECT * FROM cities;");
@@ -74,7 +99,6 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM cities;");
         }
-
 
     }
 ?>

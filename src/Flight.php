@@ -75,7 +75,31 @@
             }
             return $found_flight;
         }
-        
+
+        function addCity($city)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO flights_cities (flight_id, city_id) VALUES ({$this->getId()}, {$city->getId()});");
+        }
+
+        function getCities()
+        {
+            $query = $GLOBALS['DB']->query("SELECT city_id FROM flights_cities WHERE flight_id = {$this->getId()};");
+            $city_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $cities = [];
+            foreach ($city_ids as $id) {
+                $city_id = $id['city_id'];
+                $result = $GLOBALS['DB']->query("SELECT * FROM cities WHERE id = {$city_id};");
+                $returned_city = $result->fetchAll(PDO::FETCH_ASSOC);
+
+                $name = $returned_city[0]['name'];
+                $id = $returned_city[0]['id'];
+                $new_city = new City($name, $id);
+                array_push($cities, $new_city);
+            }
+            return $cities;
+        }
+
         static function getAll()
         {
             $returned_flights = $GLOBALS['DB']->query("SELECT * FROM flights;");
